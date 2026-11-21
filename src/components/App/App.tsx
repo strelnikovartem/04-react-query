@@ -12,12 +12,17 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import MovieModal from '../MovieModal/MovieModal';
 
 export default function App() {
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ['movies'],
+    queryFn: fetchMovies,
+  });
+
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [isError, setIsError] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
-  function modalClose() {
+  function modalClose(): void {
     setSelectedMovie(null);
   }
 
