@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import SearchBar from '../SearchBar/SearchBar';
 import fetchMovies from '../../services/movieService';
 import type { Movie } from '../../types/movie';
@@ -33,6 +33,12 @@ export default function App() {
     enabled: search !== '',
     placeholderData: keepPreviousData,
   });
+
+  useEffect(() => {
+    if (isSuccess && data.results.length === 0) {
+      toast.error('No movies found for your request.');
+    }
+  }, [isSuccess, data]);
 
   function modalClose(): void {
     setSelectedMovie(null);
