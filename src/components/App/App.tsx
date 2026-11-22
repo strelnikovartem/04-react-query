@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { Toaster, toast } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import SearchBar from '../SearchBar/SearchBar';
 import fetchMovies from '../../services/movieService';
 import type { Movie } from '../../types/movie';
@@ -23,7 +23,6 @@ const ReactPaginate = (
 ).default;
 
 export default function App() {
-  // const [movies, setMovies] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -37,10 +36,6 @@ export default function App() {
 
   function modalClose(): void {
     setSelectedMovie(null);
-  }
-
-  function handleCard(selectedMovie: Movie): void {
-    setSelectedMovie(selectedMovie);
   }
 
   const searchMovies = (query: string): void => {
