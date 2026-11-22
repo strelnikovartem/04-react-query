@@ -8,17 +8,24 @@ interface MovieResponse {
   total_pages: number;
 }
 
-export async function fetchMovies(query: string): Promise<Movie[]> {
-  const res = await axios<MovieResponse>(
-    'https://api.themoviedb.org/3/search/movie',
-    {
-      params: {
-        query: query,
-      },
-      headers: {
-        Authorization: `Bearer ${key}`,
-      },
-    }
+const options = {
+  method: 'GET',
+
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${key}`,
+  },
+};
+
+const url = `https://api.themoviedb.org/3/search/movie`;
+
+export default async function fetchMovies(
+  userRequest: string,
+  page: number
+): Promise<MovieResponse> {
+  const response = await axios.get<MovieResponse>(
+    `${url}?query=${userRequest}&page=${page}`,
+    options
   );
-  return res.data.results;
+  return response.data;
 }
